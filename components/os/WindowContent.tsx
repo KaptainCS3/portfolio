@@ -10,6 +10,7 @@ import { SettingsContent } from "./SettingsContent"
 import { SourceViewerContent } from "./SourceViewerContent"
 import { SnippingToolContent } from "./SnippingToolContent"
 import { TrashContent } from "./TrashContent"
+import { BlogContent } from "./BlogContent"
 
 interface WindowContentProps {
   id: string
@@ -26,6 +27,8 @@ export const WindowContent: FC<WindowContentProps> = ({ id, onClose }) => {
       return <SkillsContent />
     case "contact":
       return <ContactContent />
+    case "blog":
+      return <BlogContent />
     case "terminal":
       return <TerminalContent onClose={onClose} />
     case "settings":
