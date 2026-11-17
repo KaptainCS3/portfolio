@@ -3,7 +3,7 @@ import nodemailer from "nodemailer"
 import { render } from "@react-email/components"
 import { createElement } from "react"
 import { ContactEmail } from "@/components/emails/ContactEmail"
-import { contactSchema, getSubject } from "@/lib/schemas/contact"
+import { contactSchema, getSubject, toReplyTo } from "@/lib/schemas/contact"
 
 export async function POST(request: Request) {
   try {
@@ -16,6 +16,10 @@ export async function POST(request: Request) {
     }
 
     const { name, email, service, customSubject, message } = parsed.data
+    const replyTo = toReplyTo(email)
+    if (!replyTo) {
+      return NextResponse.json({ errors: { email: ["Please enter a valid email"] } }, { status: 400 })
+    }
     const subject = getSubject(service, customSubject)
 
     const transporter = nodemailer.createTransport({
@@ -26,6 +30,9 @@ export async function POST(request: Request) {
         user: process.env.SMTP_USER!,
         pass: process.env.SMTP_PASS!,
       },
+      // The message is an inline html string; never let nodemailer read files or fetch URLs.
+      disableFileAccess: true,
+      disableUrlAccess: true,
     })
 
     const html = await render(
@@ -41,7 +48,7 @@ export async function POST(request: Request) {
     await transporter.sendMail({
       from: `"Portfolio Contact" <${process.env.SMTP_USER!}>`,
       to: process.env.CONTACT_EMAIL!,
-      replyTo: email,
+      replyTo,
       subject: `[Portfolio] ${subject}`,
       html,
     })

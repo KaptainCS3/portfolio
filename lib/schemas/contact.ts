@@ -36,3 +36,16 @@ export function getSubject(service: string, customSubject?: string): string {
   const label = SERVICE_LABELS[service] || service
   return `${label} Inquiry`
 }
+
+// One bare addr-spec: no whitespace (so no CR/LF), no display name, comment, group or second address.
+const SINGLE_ADDRESS = /^[^\s@<>()[\]\\,;:"]+@[^\s@<>()[\]\\,;:"]+$/
+
+/**
+ * The visitor's email as a Reply-To mailbox object, so nodemailer never runs it through its
+ * address parser. Returns null for anything that isn't exactly one plain address.
+ */
+export function toReplyTo(email: string): { name: string; address: string } | null {
+  if (!SINGLE_ADDRESS.test(email)) return null
+  const at = email.lastIndexOf("@")
+  return { name: "", address: `${email.slice(0, at)}@${email.slice(at + 1).toLowerCase()}` }
+}
