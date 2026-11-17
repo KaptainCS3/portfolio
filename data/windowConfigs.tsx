@@ -1,4 +1,4 @@
-import { FiUser, FiFolder, FiZap, FiMail, FiMonitor, FiSettings, FiInfo, FiFile, FiCode, FiCamera, FiTrash2 } from "react-icons/fi"
+import { FiUser, FiFolder, FiZap, FiMail, FiMonitor, FiSettings, FiInfo, FiFile, FiCode, FiCamera, FiTrash2, FiBookOpen } from "react-icons/fi"
 import type { WindowConfig } from "@/types/portfolio"
 
 export const WINDOW_CONFIGS: Record<string, WindowConfig> = {
@@ -29,6 +29,13 @@ export const WINDOW_CONFIGS: Record<string, WindowConfig> = {
     w: 580,
     h: 480,
     content: "contact",
+  },
+  blog: {
+    title: "Blog — ~/blog",
+    icon: <FiBookOpen />,
+    w: 620,
+    h: 520,
+    content: "blog",
   },
   terminal: {
     title: "bash — kaptain@portfolio",
