@@ -298,7 +298,7 @@ export function ProjectsContent() {
               {/* Performance Metrics */}
               <section className="space-y-4">
                 <h3 className="text-[10px] text-[#4a6b7a] font-bold uppercase tracking-wider">
-                  System Performance
+                  Highlights
                 </h3>
                 <div className="grid grid-cols-2 gap-3">
                   {p.metrics?.map((m, i) => (
@@ -307,7 +307,7 @@ export function ProjectsContent() {
                       className="p-3 rounded-lg bg-[#0d1117] border border-[#1e3a4a]/30 hover:border-[#34d399]/40 transition-all cursor-default"
                     >
                       <p className="text-[9px] text-[#4a6b7a] mb-1 uppercase tracking-tight">
-                        Metric 0{i + 1}
+                        Fact 0{i + 1}
                       </p>
                       <p className="text-xs text-white font-bold leading-tight">
                         {m}

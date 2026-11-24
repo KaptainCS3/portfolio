@@ -47,28 +47,6 @@ export function SkillsContent() {
                 </div>
               </div>
 
-              {/* System Load Bar (Proficiency) */}
-              <div className="space-y-1.5 mb-5">
-                <div className="flex justify-between items-center text-[9px] text-[#4a6b7a] font-bold">
-                  <span>SYSTEM LOAD</span>
-                  <span
-                    className={
-                      s.level && s.level > 90
-                        ? "text-[#34d399]"
-                        : "text-[#60a5fa]"
-                    }
-                  >
-                    {s.level}%
-                  </span>
-                </div>
-                <div className="h-1.5 w-full bg-white/5 rounded-full overflow-hidden flex border border-white/5">
-                  <div
-                    className={`h-full transition-all duration-1000 ease-out ${s.level && s.level > 90 ? "bg-[#34d399]" : "bg-[#60a5fa]"}`}
-                    style={{ width: `${s.level}%` }}
-                  />
-                </div>
-              </div>
-
               {/* Skills List */}
               <div className="space-y-2">
                 {s.items.map((item) => (

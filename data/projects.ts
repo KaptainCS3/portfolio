@@ -1,4 +1,5 @@
 import type { Project } from "@/types/portfolio"
+import { BOOKING_MODULES } from "@/data/stats"
 
 export const PROJECTS: Project[] = [
   {
@@ -22,12 +23,7 @@ export const PROJECTS: Project[] = [
       "Performance Optimization",
       "i18n Strategy",
     ],
-    metrics: [
-      "8 Booking Modules",
-      "Zero Price Tampering",
-      "99.9% Uptime",
-      "50+ Micro-components",
-    ],
+    metrics: [`${BOOKING_MODULES.length} booking modules`],
     context: "🌍 Leading travel booking platform in Central Africa",
     url: "/api/proxy/global-bush",
     github: "https://github.com/KaptainCS3",
