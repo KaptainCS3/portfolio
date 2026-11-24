@@ -2,15 +2,15 @@
 
 import Image from "next/image"
 import Link from 'next/link'
-import { FiUser, FiChevronRight, FiLinkedin, FiGithub, FiMail, FiMapPin, FiCalendar, FiTerminal, FiCpu, FiShield, FiZap, FiBookOpen, FiDownload } from "react-icons/fi"
+import { FiUser, FiChevronRight, FiLinkedin, FiGithub, FiMail, FiMapPin, FiCalendar, FiTerminal, FiCpu, FiGlobe, FiBookOpen, FiDownload } from "react-icons/fi"
 import { RESUME } from "@/data/about"
+import { CAREER_START, BOOKING_MODULES, EMAIL_SERVICE_SITES, yearsSince } from "@/data/stats"
 
 export function AboutContent() {
   const metrics = [
-    { label: "Experience", value: "4+ Years", icon: FiCalendar },
-    { label: "Architecture", value: "8+ Modules", icon: FiCpu },
-    { label: "Security", value: "E2E Ready", icon: FiShield },
-    { label: "Performance", value: "99.9% Focus", icon: FiZap },
+    { label: "Experience", value: `${yearsSince(CAREER_START)} years`, icon: FiCalendar },
+    { label: "Booking modules", value: String(BOOKING_MODULES.length), icon: FiCpu },
+    { label: "Sites on one email service", value: String(EMAIL_SERVICE_SITES), icon: FiGlobe },
   ]
 
   return (

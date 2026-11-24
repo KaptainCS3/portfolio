@@ -27,7 +27,6 @@ export interface Project {
 export interface SkillCategory {
   cat: string
   items: string[]
-  level?: number
   icon?: ReactNode
 }
 
