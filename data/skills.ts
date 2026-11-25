@@ -13,13 +13,13 @@ export const SKILLS: SkillCategory[] = [
     cat: "Backend & Architecture",
     level: 88,
     icon: React.createElement(FiLayers),
-    items: ["Node.js / Express", "Prisma ORM", "PostgreSQL", "Redis / BullMQ", "REST & GraphQL", "Microservices Design"],
+    items: ["Node.js / Express", "Prisma ORM", "PostgreSQL", "Drizzle ORM", "Redis / BullMQ", "REST & GraphQL", "Microservices Design"],
   },
   {
     cat: "Cloud & DevOps",
     level: 82,
     icon: React.createElement(FiCloud),
-    items: ["AWS (S3)", "Docker / Containerization", "Vercel / GitHub Actions", "CI/CD Pipelines", ],
+    items: ["AWS (S3)", "Docker / Containerization", "Vercel / GitHub Actions", "CI/CD Pipelines", "Vitest / Playwright Testing", "Self-hosted VPS Deploys"],
   },
   {
     cat: "Security & Protocol",
@@ -37,6 +37,6 @@ export const SKILLS: SkillCategory[] = [
     cat: "AI & Automation",
     level: 85,
     icon: React.createElement(FiZap),
-    items: ["AI Agent Prompting", "LLM Integration", "Automated Workflows", "Browser Automation", "Scripting (Python/Bash)", "Process Optimization"],
+    items: ["AI Agent Prompting", "Multi-Agent Orchestration", "Claude Code Sub-agents", "MCP Servers & Tools", "LLM Integration", "Automated Workflows", "Browser Automation", "Scripting (Python/Bash)", "Process Optimization"],
   },
 ]
