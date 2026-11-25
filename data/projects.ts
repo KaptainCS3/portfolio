@@ -97,4 +97,22 @@ export const PROJECTS: Project[] = [
     type: "web",
     isCompany: false,
   },
+  {
+    name: "Job Application Bot",
+    tech: ["Python", "aiohttp", "Telegram Bot API", "Gmail (IMAP)", "Next.js", "Gemini / Groq / OpenAI APIs"],
+    desc: "A personal Telegram bot that turns a pasted job post or link into a tailored application. It picks the language and AI model, drafts a cover letter and a CV built from my profile, shows a match score, and sends the application when I tap Send. A truth check keeps every generated CV to facts in my profile. It watches Gmail, turns employer replies into a pipeline (applied, acknowledged, interview, offer or rejected), builds interview prep packs, and filters LinkedIn, Indeed and Glassdoor alerts down to the ones worth reading. A Telegram Mini App (aiohttp API with a Next.js front end) shows the board, drafts, CVs and charts. Runs 24/7 on a VPS under PM2, with public-key encrypted off-server backups.",
+    color: "#0c4a6e",
+    accent: "#38bdf8",
+    period: "Nov 2026 - Present",
+    skills: [
+      "LLM Integration",
+      "Workflow Automation",
+      "Python Backend",
+      "Encrypted Backups",
+    ],
+    metrics: ["405 offline unit tests", "Telegram Mini App", "Encrypted backups", "Deployed on a VPS"],
+    context: "🤖 Personal project: automates my own job search end to end",
+    type: "api",
+    isCompany: false,
+  },
 ];
