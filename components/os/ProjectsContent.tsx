@@ -13,10 +13,29 @@ import {
   FiExternalLink,
 } from "react-icons/fi";
 import { PROJECTS } from "@/data/projects";
+import type { Project } from "@/types/portfolio";
 import { isProxyUrl, getActualUrl } from "@/data/proxyConfig";
+
+const FILTERS: { id: string; label: string; test: (p: Project) => boolean }[] = [
+  { id: "all", label: "All", test: () => true },
+  { id: "client", label: "Client", test: (p) => !!p.isCompany },
+  { id: "own", label: "Own", test: (p) => !p.isCompany },
+  { id: "web", label: "Web", test: (p) => p.type === "web" },
+  { id: "api", label: "API", test: (p) => p.type === "api" },
+  { id: "mobile", label: "Mobile", test: (p) => p.type === "mobile" },
+];
 
 export function ProjectsContent() {
   const [active, setActive] = useState(0);
+  const [filter, setFilter] = useState("all");
+  const visible = PROJECTS.map((project, i) => ({ project, i })).filter(({ project }) =>
+    (FILTERS.find((f) => f.id === filter) ?? FILTERS[0]).test(project),
+  );
+  const nextProject = () => {
+    if (visible.length === 0) return;
+    const pos = visible.findIndex((v) => v.i === active);
+    setActive(visible[(pos + 1) % visible.length].i);
+  };
   const [sidebarOpen, setSidebarOpen] = useState(
     typeof window !== "undefined" && window.innerWidth >= 640,
   );
@@ -55,6 +74,9 @@ export function ProjectsContent() {
           >
             <SidebarContent
               active={active}
+              filter={filter}
+              onFilter={setFilter}
+              visible={visible}
               onSelect={(i) => {
                 setActive(i);
                 setSidebarOpen(false);
@@ -71,7 +93,7 @@ export function ProjectsContent() {
         }`}
       >
         <div className="min-w-64 flex-1 flex flex-col">
-          <SidebarContent active={active} onSelect={setActive} />
+          <SidebarContent active={active} filter={filter} onFilter={setFilter} visible={visible} onSelect={setActive} />
         </div>
       </aside>
 
@@ -182,7 +204,29 @@ export function ProjectsContent() {
 
                   {/* Viewport Content */}
                   <div className="h-112.5 sm:h-auto sm:aspect-video bg-[#06090c] relative overflow-hidden">
-                    {p.type === "web" && p.url ? (
+                    {p.type === "web" && p.url && p.iframeBlocked ? (
+                      <div className="absolute inset-0 flex flex-col items-center justify-center bg-[#0d1117] p-8 text-center space-y-4">
+                        <div className="p-4 rounded-full bg-[#34d399]/10 text-[#34d399] border border-[#34d399]/20">
+                          <FiGlobe size={32} />
+                        </div>
+                        <div className="space-y-1 max-w-70">
+                          <p className="text-xs text-white font-bold uppercase tracking-widest">
+                            Live site
+                          </p>
+                          <p className="text-[10px] text-[#4a6b7a]">
+                            This site does not allow embedding, so it opens in a new tab.
+                          </p>
+                        </div>
+                        <a
+                          href={actualUrl || p.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="px-6 py-2 rounded-full bg-[#34d399] text-[#060d14] text-[10px] font-bold hover:scale-105 transition-all flex items-center gap-2"
+                        >
+                          OPEN SITE <FiExternalLink size={12} />
+                        </a>
+                      </div>
+                    ) : p.type === "web" && p.url ? (
                       <div className="w-full h-full relative">
                         {/* Fallback View (Always in background) */}
                         <div className="absolute inset-0 flex flex-col items-center justify-center bg-[#0d1117] p-8 text-center space-y-4">
@@ -378,7 +422,7 @@ export function ProjectsContent() {
           </div>
           <div className="flex gap-3">
             <button
-              onClick={() => setActive((active + 1) % PROJECTS.length)}
+              onClick={nextProject}
               className="px-4 py-2 rounded bg-white/5 border border-white/10 text-[10px] text-white hover:bg-white/10 transition-all font-bold tracking-widest uppercase"
             >
               Next Project
@@ -417,16 +461,49 @@ export function ProjectsContent() {
   );
 }
 
-function SidebarContent({ active, onSelect }: { active: number; onSelect: (i: number) => void }) {
+function SidebarContent({
+  active,
+  filter,
+  onFilter,
+  visible,
+  onSelect,
+}: {
+  active: number;
+  filter: string;
+  onFilter: (id: string) => void;
+  visible: { project: Project; i: number }[];
+  onSelect: (i: number) => void;
+}) {
   return (
     <>
       <div className="p-4 border-b border-[#1e3a4a]/20">
         <p className="text-[10px] uppercase tracking-[0.2em] text-[#4a6b7a] font-bold">
           Project Explorer
         </p>
+        <div className="flex flex-wrap gap-1 mt-3">
+          {FILTERS.map((f) => (
+            <button
+              key={f.id}
+              onClick={() => onFilter(f.id)}
+              className={`px-2 py-1 rounded text-[9px] uppercase tracking-wider border transition-colors ${
+                filter === f.id
+                  ? "bg-[#34d399]/10 border-[#34d399]/40 text-[#34d399]"
+                  : "border-[#1e3a4a]/40 text-[#4a6b7a] hover:text-white"
+              }`}
+            >
+              {f.label}
+            </button>
+          ))}
+        </div>
+        <p className="mt-2 text-[9px] text-[#4a6b7a]">
+          {visible.length} of {PROJECTS.length} projects
+        </p>
       </div>
-      <div className="flex-1 overflow-y-auto py-2 custom-scrollbar">
-        {PROJECTS.map((project, i) => (
+      <div className="flex-1 overflow-y-auto py-2 pb-24 sm:pb-2 custom-scrollbar">
+        {visible.length === 0 && (
+          <p className="px-4 py-3 text-[10px] text-[#4a6b7a]">No projects match this filter.</p>
+        )}
+        {visible.map(({ project, i }) => (
           <button
             key={i}
             onClick={() => onSelect(i)}
