@@ -62,6 +62,8 @@ export const RESUME: Resume = {
         "Architected advanced Programmatic SEO (pSEO) systems handling hundreds of localized landing pages",
         "Developed custom middleware proxy layers for enhanced security, rate limiting, and bot filtering",
         "Lead developer for the car rental and hotel search result UI optimizations",
+        "Delegate build work to parallel AI sub-agents, each in its own git worktree with one small pull request into dev; I write the briefs, review every diff, and re-run tests, lint and the build before anything is pushed",
+        "Shipped the Cameroon visa guide's contact flow: a mandatory international phone field (searchable country list, E.164), a Turnstile-protected form posting to a shared email service, and EN/FR contact pages in a 618-page prerendered site",
       ],
       tech: [
         "TypeScript",

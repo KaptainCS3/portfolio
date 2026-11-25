@@ -37,6 +37,6 @@ export const SKILLS: SkillCategory[] = [
     cat: "AI & Automation",
     level: 85,
     icon: React.createElement(FiZap),
-    items: ["AI Agent Prompting", "LLM Integration", "Automated Workflows", "Browser Automation", "Scripting (Python/Bash)", "Process Optimization"],
+    items: ["AI Agent Prompting", "Multi-Agent Orchestration", "Claude Code Sub-agents", "LLM Integration", "Automated Workflows", "Browser Automation", "Scripting (Python/Bash)", "Process Optimization"],
   },
 ]
